@@ -1,3 +1,8 @@
+<div id = "badges">
+  <a href = "https://www.linkedin.com/in/adrian-korwel-83226a300/">
+    <img src = "https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Badge"/>
+  </a>
+
 # What is an HTTP-Fuzzer
 
 An HTTP-Fuzzer is a cybersecurity tool used for testing the robustness of web applications by sending a variety of crafted HTTP requests to identify vulnerabilities. This tool simulates malicious user behavior, such as SQL injection, to discover flaws in input validation, authentication, and other application layers. By automating the process of injecting payloads and testing responses, it enhances the security assessment process, helping security professionals pinpoint weaknesses and improve the resilience of web applications against attacks.
